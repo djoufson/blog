@@ -6,10 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace app.Infrastructure.Repositories.Base;
 
-public class Repository<TEntity, TId>(ArticlesDbContext dbContext) : IRepository<TEntity, TId>
+public class Repository<TEntity, TId>(BlogDbContext dbContext) : IRepository<TEntity, TId>
     where TEntity : Entity<TId>
 {
-    protected readonly ArticlesDbContext _dbContext = dbContext;
+    protected readonly BlogDbContext _dbContext = dbContext;
+
+    public IQueryable<TEntity> Query()
+    {
+        return _dbContext.Set<TEntity>().AsQueryable();
+    }
 
     public virtual async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {

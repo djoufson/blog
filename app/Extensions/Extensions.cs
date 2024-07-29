@@ -9,7 +9,9 @@ public static class Extensions
 {
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSqlServer<ArticlesDbContext>(configuration["ConnectionStrings:SqlServer"]);
+        services.AddSqlServer<BlogDbContext>(configuration["ConnectionStrings:SqlServer"]);
+
+        services.AddScoped<ArticleService>();
         services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
         services.AddSingleton<IDateTimeProvider,DateTimeProvider>();
         return services;
