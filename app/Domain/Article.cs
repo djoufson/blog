@@ -1,6 +1,6 @@
-using app.Business;
 using app.Domain.Base;
 using app.Domain.Exceptions;
+using app.Services;
 
 namespace app.Domain;
 public class Article : Entity<Guid>
@@ -9,7 +9,7 @@ public class Article : Entity<Guid>
     public string Content { get; private set; }
     public string Slug { get; private set; }
     public DateTime? PublishedDate { get; private set; }
-    public string[] Tags { get; private set; }
+    public Tag[] Tags { get; private set; }
     public string ImageUrl { get; private set; }
     public PublishedStatus Status { get; private set; } = PublishedStatus.Draft;
 
@@ -18,7 +18,7 @@ public class Article : Entity<Guid>
         string title,
         string content,
         string slug,
-        string[] tags,
+        Tag[] tags,
         string imageUrl) : base(id)
     {
         Title = title;
@@ -35,14 +35,13 @@ public class Article : Entity<Guid>
     }
 
     public static Article Create(
-        Guid id,
         string title,
         string content,
-        string[] tags,
+        Tag[] tags,
         string imageUrl)
     {
         var slug = GenerateSlug(title);
-        return new Article(id, title, content, slug, tags, imageUrl);
+        return new Article(Guid.NewGuid(), title, content, slug, tags, imageUrl);
     }
 
     private static string GenerateSlug(string title)

@@ -1,4 +1,4 @@
-namespace app.Business;
+namespace app.Services;
 
 public interface IDateTimeProvider
 {

@@ -1,6 +1,6 @@
-using app.Business;
+using app.Services;
 
-namespace app.Infrastructure;
+namespace app.Infrastructure.Services;
 internal class DateTimeProvider : IDateTimeProvider
 {
     public DateTime UtcNow()
